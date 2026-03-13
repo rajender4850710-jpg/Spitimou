@@ -64,7 +64,7 @@ export default function Home() {
   const queryClient = useQueryClient();
 
   const [dealTab, setDealTab] = useState("sale");
-  const [rooms, setRooms] = useState("Any");
+  const [propertyType, setPropertyType] = useState("Any Type");
   const [maxPrice, setMaxPrice] = useState("");
   const [query, setQuery] = useState("");
 
