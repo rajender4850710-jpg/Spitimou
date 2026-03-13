@@ -77,10 +77,10 @@ export default function AddProperty() {
               <Select value={form.type} onValueChange={v => update("type", v)}>
                 <SelectTrigger className="mt-1 rounded-xl"><SelectValue /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="apartment">Apartment</SelectItem>
-                  <SelectItem value="house">House</SelectItem>
                   <SelectItem value="studio">Studio</SelectItem>
+                  <SelectItem value="apartment">Apartment</SelectItem>
                   <SelectItem value="penthouse">Penthouse</SelectItem>
+                  <SelectItem value="house">Villa</SelectItem>
                   <SelectItem value="townhouse">Townhouse</SelectItem>
                   <SelectItem value="commercial">Commercial</SelectItem>
                 </SelectContent>
