@@ -230,8 +230,8 @@ export default function AddProperty() {
           </label>
         </Card>
 
-        <Button type="submit" disabled={loading} size="lg" className="w-full rounded-xl bg-slate-900 hover:bg-slate-800 gap-2">
-          {loading ? "Creating..." : <><CheckCircle className="w-5 h-5" /> Create Listing</>}
+        <Button id="submit-btn" type="submit" disabled={loading} size="lg" className="w-full rounded-xl bg-slate-900 hover:bg-slate-800 gap-2">
+          {loading ? "Creating..." : <><CheckCircle className="w-5 h-5" /> {verified ? "Create Listing" : "Verify & Create Listing"}</>}
         </Button>
       </form>
     </div>
