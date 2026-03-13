@@ -174,7 +174,20 @@ export default function AddProperty() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div><Label>Contact Name</Label><Input className="mt-1 rounded-xl" value={form.contact_name} onChange={e => update("contact_name", e.target.value)} /></div>
-            <div><Label>Mobile</Label><Input type="tel" className="mt-1 rounded-xl" value={form.contact_phone} onChange={e => update("contact_phone", e.target.value)} /></div>
+            <div>
+              <Label>Mobile</Label>
+              <div className="flex gap-2 mt-1">
+                <Select value={countryCode} onValueChange={setCountryCode}>
+                  <SelectTrigger className="w-32 rounded-xl shrink-0"><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    {countryCodes.map(c => (
+                      <SelectItem key={c.code} value={c.code}>{c.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Input type="tel" className="rounded-xl" placeholder="99 123456" value={form.contact_phone} onChange={e => update("contact_phone", e.target.value)} />
+              </div>
+            </div>
             <div><Label>Email</Label><Input type="email" className="mt-1 rounded-xl" value={form.contact_email} onChange={e => update("contact_email", e.target.value)} /></div>
           </div>
         </Card>
