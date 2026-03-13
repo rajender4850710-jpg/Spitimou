@@ -26,19 +26,19 @@ export default function AddProperty() {
   });
 
   const countryCodes = [
-    { code: "+357", label: "🇨🇾 +357" },
-    { code: "+30", label: "🇬🇷 +30" },
-    { code: "+44", label: "🇬🇧 +44" },
-    { code: "+7", label: "🇷🇺 +7" },
-    { code: "+49", label: "🇩🇪 +49" },
-    { code: "+33", label: "🇫🇷 +33" },
-    { code: "+39", label: "🇮🇹 +39" },
-    { code: "+1", label: "🇺🇸 +1" },
-    { code: "+971", label: "🇦🇪 +971" },
-    { code: "+972", label: "🇮🇱 +972" },
-    { code: "+90", label: "🇹🇷 +90" },
-    { code: "+380", label: "🇺🇦 +380" },
-    { code: "+48", label: "🇵🇱 +48" },
+    { code: "+357", flag: "🇨🇾", name: "Cyprus" },
+    { code: "+30", flag: "🇬🇷", name: "Greece" },
+    { code: "+44", flag: "🇬🇧", name: "UK" },
+    { code: "+7", flag: "🇷🇺", name: "Russia" },
+    { code: "+49", flag: "🇩🇪", name: "Germany" },
+    { code: "+33", flag: "🇫🇷", name: "France" },
+    { code: "+39", flag: "🇮🇹", name: "Italy" },
+    { code: "+1", flag: "🇺🇸", name: "USA" },
+    { code: "+971", flag: "🇦🇪", name: "UAE" },
+    { code: "+972", flag: "🇮🇱", name: "Israel" },
+    { code: "+90", flag: "🇹🇷", name: "Turkey" },
+    { code: "+380", flag: "🇺🇦", name: "Ukraine" },
+    { code: "+48", flag: "🇵🇱", name: "Poland" },
   ];
 
   const update = (key, value) => setForm({ ...form, [key]: value });
