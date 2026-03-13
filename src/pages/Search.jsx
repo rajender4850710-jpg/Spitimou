@@ -105,7 +105,16 @@ export default function SearchPage() {
           <div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin" />
         </div>
       ) : viewMode === "map" ? (
-        <PropertyMap properties={filtered} />
+        <div className="w-full rounded-2xl overflow-hidden" style={{height: "600px"}}>
+          <iframe
+            width="100%"
+            height="100%"
+            style={{border: 0}}
+            loading="lazy"
+            allowFullScreen
+            src={`https://maps.google.com/maps?q=${encodeURIComponent("Cyprus real estate")}&output=embed`}
+          />
+        </div>
       ) : (
         <div className={viewMode === "grid"
           ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
