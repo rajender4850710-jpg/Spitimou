@@ -12,7 +12,7 @@ const DEAL_TABS = [
   { key: "daily_rent", label: "Daily" },
 ];
 
-const ROOM_OPTIONS = ["Any", "Studio", "1", "2", "3", "4+"];
+const TYPE_OPTIONS = ["Any Type", "Studio", "Villa", "Mezzanette", "Apartment", "Penthouse", "Townhouse", "Commercial"];
 
 const QUICK_LINKS = [
   {
