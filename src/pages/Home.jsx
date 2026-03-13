@@ -176,7 +176,7 @@ export default function Home() {
 
           {/* Price Range */}
           <div className="relative border-r border-slate-200 flex items-center gap-1 px-3">
-            <span className="text-slate-400 text-xs whitespace-nowrap">$</span>
+            <span className="text-slate-400 text-xs whitespace-nowrap">€</span>
             <input
               type="number"
               placeholder="Min"

@@ -54,8 +54,8 @@ export default function Calculator() {
             <div className="space-y-6">
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <Label className="flex items-center gap-2 text-sm"><DollarSign className="w-4 h-4 text-slate-400" /> Property Price</Label>
-                  <span className="font-semibold text-slate-900">${price.toLocaleString()}</span>
+                  <Label className="flex items-center gap-2 text-sm"><Euro className="w-4 h-4 text-slate-400" /> Property Price</Label>
+                  <span className="font-semibold text-slate-900">€{price.toLocaleString()}</span>
                 </div>
                 <Slider value={[price]} onValueChange={([v]) => setPrice(v)} min={50000} max={5000000} step={10000} className="mt-2" />
                 <div className="flex justify-between text-xs text-slate-400 mt-1"><span>$50K</span><span>$5M</span></div>
