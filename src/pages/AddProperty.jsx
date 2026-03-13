@@ -48,6 +48,7 @@ export default function AddProperty() {
     setLoading(true);
     const data = {
       ...form,
+      contact_phone: form.contact_phone ? `${countryCode}${form.contact_phone}` : "",
       price: Number(form.price),
       area: Number(form.area),
       living_area: form.living_area ? Number(form.living_area) : undefined,
