@@ -178,12 +178,18 @@ export default function AddProperty() {
               <Label>Mobile</Label>
               <div className="flex gap-2 mt-1">
                 <Select value={countryCode} onValueChange={setCountryCode}>
-                  <SelectTrigger className="w-28 rounded-xl shrink-0 text-sm font-medium">
-                    <span>{countryCodes.find(c => c.code === countryCode)?.label || countryCode}</span>
+                  <SelectTrigger className="w-32 rounded-xl shrink-0">
+                    {(() => { const c = countryCodes.find(x => x.code === countryCode); return c ? <span className="flex items-center gap-1.5"><span className="text-lg">{c.flag}</span><span className="font-bold text-sm">{c.code}</span></span> : countryCode; })()}
                   </SelectTrigger>
                   <SelectContent>
                     {countryCodes.map(c => (
-                      <SelectItem key={c.code} value={c.code} className="text-sm font-medium">{c.label}</SelectItem>
+                      <SelectItem key={c.code} value={c.code}>
+                        <span className="flex items-center gap-2">
+                          <span className="text-lg">{c.flag}</span>
+                          <span className="font-bold text-slate-800">{c.name}</span>
+                          <span className="text-slate-400 text-xs">{c.code}</span>
+                        </span>
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
