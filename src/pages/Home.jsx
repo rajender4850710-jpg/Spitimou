@@ -153,6 +153,20 @@ export default function Home() {
             <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
           </div>
 
+          {/* Rooms */}
+          <div className="relative border-r border-slate-200">
+            <select
+              value={rooms}
+              onChange={e => setRooms(e.target.value)}
+              className="h-14 pl-4 pr-8 text-sm font-medium text-slate-700 bg-transparent appearance-none outline-none cursor-pointer w-full sm:w-36"
+            >
+              {["Any Rooms", "1", "2", "3", "4", "5", "6+"].map(r => (
+                <option key={r} value={r}>{r === "Any Rooms" ? r : `${r} ${r === "1" ? "Room" : "Rooms"}`}</option>
+              ))}
+            </select>
+            <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+          </div>
+
           {/* Price Range */}
           <div className="relative border-r border-slate-200 flex items-center gap-1 px-3">
             <span className="text-slate-400 text-xs whitespace-nowrap">$</span>
