@@ -109,7 +109,7 @@ export default function AddProperty() {
         <Card className="p-6 rounded-2xl border-slate-100 space-y-4">
           <h2 className="font-semibold text-slate-900">Specifications</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            <div><Label>Price ($) *</Label><Input required type="number" className="mt-1 rounded-xl" value={form.price} onChange={e => update("price", e.target.value)} /></div>
+            <div><Label>Price (€) *</Label><Input required type="number" className="mt-1 rounded-xl" value={form.price} onChange={e => update("price", e.target.value)} /></div>
             <div><Label>Total Area (m²) *</Label><Input required type="number" className="mt-1 rounded-xl" value={form.area} onChange={e => update("area", e.target.value)} /></div>
             <div><Label>Rooms *</Label><Input required type="number" className="mt-1 rounded-xl" value={form.rooms} onChange={e => update("rooms", e.target.value)} /></div>
             <div><Label>Living Area (m²)</Label><Input type="number" className="mt-1 rounded-xl" value={form.living_area} onChange={e => update("living_area", e.target.value)} /></div>
