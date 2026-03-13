@@ -209,12 +209,14 @@ export default function Home() {
           </div>
 
           {/* Map button */}
-          <button
-            onClick={() => navigate("/Search")}
+          <a
+            href={`https://www.google.com/maps/search/real+estate+cyprus`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden sm:flex items-center gap-2 px-4 text-sm text-slate-500 hover:text-slate-700 border-r border-slate-200 whitespace-nowrap"
           >
             <Map className="w-4 h-4" /> On map
-          </button>
+          </a>
 
           {/* CTA */}
           <button
