@@ -93,7 +93,7 @@ export default function Home() {
   const handleSearch = () => {
     const params = new URLSearchParams();
     params.set("deal_type", dealTab);
-    if (rooms !== "Any") params.set("rooms", rooms === "Studio" ? "1" : rooms.replace("+", ""));
+    if (propertyType !== "Any Type") params.set("type", propertyType.toLowerCase());
     if (maxPrice) params.set("maxPrice", maxPrice);
     if (query) params.set("query", query);
     navigate(`/Search?${params.toString()}`);
