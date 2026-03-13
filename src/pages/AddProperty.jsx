@@ -89,6 +89,14 @@ export default function AddProperty() {
       <h1 className="text-3xl font-bold text-slate-900 mb-2">List a Property</h1>
       <p className="text-slate-500 mb-8">Fill in the details to create your listing</p>
 
+      {showOtp && (
+        <OtpVerificationModal
+          email={form.contact_email}
+          onVerified={() => { setVerified(true); setShowOtp(false); setTimeout(() => document.getElementById("submit-btn").click(), 100); }}
+          onClose={() => setShowOtp(false)}
+        />
+      )}
+
       <form onSubmit={handleSubmit} className="space-y-6">
         <Card className="p-6 rounded-2xl border-slate-100 space-y-4">
           <h2 className="font-semibold text-slate-900">Basic Information</h2>
