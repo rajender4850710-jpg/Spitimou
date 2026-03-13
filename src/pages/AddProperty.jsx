@@ -211,7 +211,13 @@ export default function AddProperty() {
                 <Input required type="tel" className="rounded-xl" placeholder="99 123456" value={form.contact_phone} onChange={e => update("contact_phone", e.target.value)} />
               </div>
             </div>
-            <div><Label>Email</Label><Input type="email" className="mt-1 rounded-xl" value={form.contact_email} onChange={e => update("contact_email", e.target.value)} /></div>
+            <div>
+              <Label>Email *</Label>
+              <div className="flex gap-2 mt-1 items-center">
+                <Input required type="email" className="rounded-xl" value={form.contact_email} onChange={e => { update("contact_email", e.target.value); setVerified(false); }} />
+                {verified && <span className="text-green-600 text-xs font-semibold whitespace-nowrap flex items-center gap-1"><CheckCircle className="w-4 h-4" /> Verified</span>}
+              </div>
+            </div>
           </div>
         </Card>
 
