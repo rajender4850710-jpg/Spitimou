@@ -124,7 +124,7 @@ export default function Home() {
       {/* Hero search block */}
       <section className="max-w-4xl mx-auto px-4 pt-14 pb-10 text-center">
         <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-8">
-          Real Estate in New York
+          Real Estate in Cyprus
         </h1>
 
         {/* Deal type tabs */}
