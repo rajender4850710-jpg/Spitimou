@@ -100,15 +100,15 @@ export default function Calculator() {
           <div className="grid grid-cols-3 gap-4">
             <Card className="p-4 rounded-2xl border-slate-100 text-center">
               <p className="text-xs text-slate-400 mb-1">Loan Amount</p>
-              <p className="text-lg font-bold text-slate-900">${Math.round(calc.principal).toLocaleString()}</p>
+              <p className="text-lg font-bold text-slate-900">€{Math.round(calc.principal).toLocaleString()}</p>
             </Card>
             <Card className="p-4 rounded-2xl border-slate-100 text-center">
               <p className="text-xs text-slate-400 mb-1">Total Interest</p>
-              <p className="text-lg font-bold text-rose-600">${Math.round(calc.totalInterest).toLocaleString()}</p>
+              <p className="text-lg font-bold text-rose-600">€{Math.round(calc.totalInterest).toLocaleString()}</p>
             </Card>
             <Card className="p-4 rounded-2xl border-slate-100 text-center">
               <p className="text-xs text-slate-400 mb-1">Total Cost</p>
-              <p className="text-lg font-bold text-slate-900">${Math.round(calc.totalPayment + price * downPayment / 100).toLocaleString()}</p>
+              <p className="text-lg font-bold text-slate-900">€{Math.round(calc.totalPayment + price * downPayment / 100).toLocaleString()}</p>
             </Card>
           </div>
 
