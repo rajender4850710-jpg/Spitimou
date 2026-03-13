@@ -48,6 +48,10 @@ export default function AddProperty() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!verified) {
+      setShowOtp(true);
+      return;
+    }
     setLoading(true);
     const data = {
       ...form,
