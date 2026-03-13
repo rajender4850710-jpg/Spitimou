@@ -178,10 +178,12 @@ export default function AddProperty() {
               <Label>Mobile</Label>
               <div className="flex gap-2 mt-1">
                 <Select value={countryCode} onValueChange={setCountryCode}>
-                  <SelectTrigger className="w-32 rounded-xl shrink-0"><SelectValue /></SelectTrigger>
+                  <SelectTrigger className="w-28 rounded-xl shrink-0 text-sm font-medium">
+                    <span>{countryCodes.find(c => c.code === countryCode)?.label || countryCode}</span>
+                  </SelectTrigger>
                   <SelectContent>
                     {countryCodes.map(c => (
-                      <SelectItem key={c.code} value={c.code}>{c.label}</SelectItem>
+                      <SelectItem key={c.code} value={c.code} className="text-sm font-medium">{c.label}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
