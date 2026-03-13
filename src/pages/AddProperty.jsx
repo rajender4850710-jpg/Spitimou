@@ -156,7 +156,8 @@ export default function AddProperty() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div><Label>Contact Name</Label><Input className="mt-1 rounded-xl" value={form.contact_name} onChange={e => update("contact_name", e.target.value)} /></div>
-            <div><Label>Contact Phone</Label><Input className="mt-1 rounded-xl" value={form.contact_phone} onChange={e => update("contact_phone", e.target.value)} /></div>
+            <div><Label>Mobile</Label><Input type="tel" className="mt-1 rounded-xl" value={form.contact_phone} onChange={e => update("contact_phone", e.target.value)} /></div>
+            <div><Label>Email</Label><Input type="email" className="mt-1 rounded-xl" value={form.contact_email} onChange={e => update("contact_email", e.target.value)} /></div>
           </div>
         </Card>
 
