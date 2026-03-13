@@ -94,7 +94,7 @@ export default function Calculator() {
         <div className="space-y-6">
           <Card className="p-6 rounded-2xl border-slate-100 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
             <p className="text-sm text-slate-400 mb-1">Monthly Payment</p>
-            <p className="text-4xl font-bold">${Math.round(calc.monthly).toLocaleString()}</p>
+            <p className="text-4xl font-bold">€{Math.round(calc.monthly).toLocaleString()}</p>
           </Card>
 
           <div className="grid grid-cols-3 gap-4">
