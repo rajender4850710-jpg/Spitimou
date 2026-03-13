@@ -126,6 +126,7 @@ export default function Home() {
         <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-8">
           Real Estate in Cyprus
         </h1>
+        <p className="text-base text-slate-500 -mt-4 mb-8">From Cyprus to the world</p>
 
         {/* Deal type tabs */}
         <div className="inline-flex bg-slate-100 rounded-xl p-1 mb-5">
