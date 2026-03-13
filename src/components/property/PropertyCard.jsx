@@ -14,9 +14,9 @@ const dealColors = { sale: "bg-emerald-500", rent: "bg-blue-500", daily_rent: "b
 export default function PropertyCard({ property, isFavorited, onToggleFavorite, compact = false }) {
   const formatPrice = (price, dealType) => {
     if (dealType === "rent" || dealType === "daily_rent") {
-      return `$${price.toLocaleString()}/mo`;
+      return `€${price.toLocaleString()}/mo`;
     }
-    return `$${price.toLocaleString()}`;
+    return `€${price.toLocaleString()}`;
   };
 
   return (

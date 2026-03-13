@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Card } from "@/components/ui/card";
-import { Calculator as CalcIcon, DollarSign, Percent, Clock, PieChart } from "lucide-react";
+import { Calculator as CalcIcon, Euro, Percent, Clock, PieChart } from "lucide-react";
 import { PieChart as RPieChart, Pie, Cell, ResponsiveContainer, Legend } from "recharts";
 
 export default function Calculator() {
