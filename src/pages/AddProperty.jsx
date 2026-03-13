@@ -15,6 +15,8 @@ import OtpVerificationModal from "@/components/property/OtpVerificationModal";
 export default function AddProperty() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [showOtp, setShowOtp] = useState(false);
+  const [verified, setVerified] = useState(false);
   const [countryCode, setCountryCode] = useState("+357");
   const [form, setForm] = useState({
     title: "", description: "", type: "apartment", deal_type: "sale",
