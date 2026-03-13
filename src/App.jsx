@@ -5,7 +5,15 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
-// Add page imports here
+import { Navigate } from 'react-router-dom';
+import AppLayout from './components/layout/AppLayout';
+import Home from './pages/Home';
+import Search from './pages/Search';
+import Property from './pages/Property';
+import Favorites from './pages/Favorites';
+import Calculator from './pages/Calculator';
+import Compare from './pages/Compare';
+import AddProperty from './pages/AddProperty';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -33,7 +41,16 @@ const AuthenticatedApp = () => {
   // Render the main app
   return (
     <Routes>
-      {/* Add your page Route elements here */}
+      <Route element={<AppLayout />}>
+        <Route path="/" element={<Navigate to="/Home" replace />} />
+        <Route path="/Home" element={<Home />} />
+        <Route path="/Search" element={<Search />} />
+        <Route path="/Property" element={<Property />} />
+        <Route path="/Favorites" element={<Favorites />} />
+        <Route path="/Calculator" element={<Calculator />} />
+        <Route path="/Compare" element={<Compare />} />
+        <Route path="/AddProperty" element={<AddProperty />} />
+      </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
