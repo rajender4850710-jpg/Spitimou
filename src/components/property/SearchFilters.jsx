@@ -53,6 +53,19 @@ export default function SearchFilters({ filters, onFiltersChange, onSearch }) {
               <SelectItem value="commercial">Commercial</SelectItem>
             </SelectContent>
           </Select>
+          <Select value={String(filters.rooms || "all")} onValueChange={(v) => update("rooms", v === "all" ? null : Number(v))}>
+            <SelectTrigger className="w-full sm:w-36 h-12 rounded-xl border-slate-200">
+              <SelectValue placeholder="Rooms" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Any Rooms</SelectItem>
+              <SelectItem value="1">1 Room</SelectItem>
+              <SelectItem value="2">2 Rooms</SelectItem>
+              <SelectItem value="3">3 Rooms</SelectItem>
+              <SelectItem value="4">4 Rooms</SelectItem>
+              <SelectItem value="5">5+ Rooms</SelectItem>
+            </SelectContent>
+          </Select>
           <Button onClick={onSearch} className="h-12 px-8 rounded-xl bg-slate-900 hover:bg-slate-800 gap-2">
             <Search className="w-4 h-4" /> Search
           </Button>
