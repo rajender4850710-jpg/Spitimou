@@ -65,6 +65,7 @@ export default function Home() {
 
   const [dealTab, setDealTab] = useState("sale");
   const [propertyType, setPropertyType] = useState("Any Type");
+  const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [query, setQuery] = useState("");
 
