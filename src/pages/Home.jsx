@@ -57,6 +57,13 @@ const QUICK_LINKS = [
     type: "penthouse",
     deal: "sale",
   },
+  {
+    label: "Empty Plots",
+    count: "1,280",
+    icon: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=200&q=80",
+    type: "land",
+    deal: "sale",
+  },
 ];
 
 export default function Home() {
