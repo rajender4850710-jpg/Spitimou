@@ -1,16 +1,76 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
-import { useQuery } from "@tanstack/react-query";
-import { Search, Building2, Home as HomeIcon, Landmark, TrendingUp, ArrowRight, Star, MapPin, Shield, Clock } from "lucide-react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Search, Heart, MapPin, BedDouble, Maximize, ArrowRight, ChevronDown, Map } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
 import PropertyCard from "../components/property/PropertyCard";
 
+const DEAL_TABS = [
+  { key: "sale", label: "Buy" },
+  { key: "rent", label: "Rent" },
+  { key: "daily_rent", label: "Daily" },
+];
+
+const ROOM_OPTIONS = ["Any", "Studio", "1", "2", "3", "4+"];
+
+const QUICK_LINKS = [
+  {
+    label: "New Builds",
+    count: "517",
+    icon: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=200&q=80",
+    type: "apartment",
+    deal: "sale",
+  },
+  {
+    label: "Buy",
+    count: "69,547",
+    icon: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=200&q=80",
+    type: "all",
+    deal: "sale",
+  },
+  {
+    label: "Rent",
+    count: "9,351",
+    icon: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=200&q=80",
+    type: "apartment",
+    deal: "rent",
+  },
+  {
+    label: "Houses",
+    count: "12,400",
+    icon: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=200&q=80",
+    type: "house",
+    deal: "sale",
+  },
+  {
+    label: "Commercial",
+    count: "8,200",
+    icon: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=200&q=80",
+    type: "commercial",
+    deal: "rent",
+  },
+  {
+    label: "Penthouses",
+    count: "340",
+    icon: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=200&q=80",
+    type: "penthouse",
+    deal: "sale",
+  },
+];
+
 export default function Home() {
-  const { data: featured = [] } = useQuery({
-    queryKey: ["featured-properties"],
-    queryFn: () => base44.entities.Property.filter({ is_featured: true, status: "active" }),
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const [dealTab, setDealTab] = useState("sale");
+  const [rooms, setRooms] = useState("Any");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [query, setQuery] = useState("");
+
+  const { data: allProperties = [] } = useQuery({
+    queryKey: ["properties"],
+    queryFn: () => base44.entities.Property.filter({ status: "active" }),
   });
 
   const { data: favorites = [] } = useQuery({
@@ -27,160 +87,248 @@ export default function Home() {
     } else {
       await base44.entities.Favorite.create({ property_id: propertyId });
     }
+    queryClient.invalidateQueries({ queryKey: ["favorites"] });
   };
 
-  const categories = [
-    { icon: Building2, label: "Apartments", type: "apartment", color: "from-blue-500 to-blue-600" },
-    { icon: HomeIcon, label: "Houses", type: "house", color: "from-emerald-500 to-emerald-600" },
-    { icon: Landmark, label: "Penthouses", type: "penthouse", color: "from-purple-500 to-purple-600" },
-    { icon: TrendingUp, label: "Commercial", type: "commercial", color: "from-amber-500 to-amber-600" },
-  ];
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+    params.set("deal_type", dealTab);
+    if (rooms !== "Any") params.set("rooms", rooms === "Studio" ? "1" : rooms.replace("+", ""));
+    if (maxPrice) params.set("maxPrice", maxPrice);
+    if (query) params.set("query", query);
+    navigate(`/Search?${params.toString()}`);
+  };
 
-  const stats = [
-    { value: "12,000+", label: "Listed Properties" },
-    { value: "8,500+", label: "Happy Clients" },
-    { value: "200+", label: "Partner Agents" },
-    { value: "50+", label: "Cities Covered" },
-  ];
+  const forSale = allProperties.filter(p => p.deal_type === "sale").slice(0, 4);
+  const forRent = allProperties.filter(p => p.deal_type === "rent").slice(0, 4);
+
+  const totalCount = {
+    sale: allProperties.filter(p => p.deal_type === "sale").length,
+    rent: allProperties.filter(p => p.deal_type === "rent").length,
+    daily_rent: allProperties.filter(p => p.deal_type === "daily_rent").length,
+  };
 
   return (
-    <div>
-      {/* Hero */}
-      <section className="relative min-h-[92vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80"
-            className="w-full h-full object-cover"
-            alt="Hero"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/70 to-transparent" />
-        </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 w-full">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-2xl"
-          >
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-6">
-              <Star className="w-3.5 h-3.5 text-amber-400" />
-              <span className="text-sm text-white/90 font-medium">#1 Real Estate Platform</span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-              Find Your
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-rose-500">
-                Dream Property
-              </span>
-            </h1>
-            <p className="text-lg text-white/70 mb-10 max-w-lg">
-              Explore thousands of premium properties with advanced search, interactive maps, and AI-powered recommendations.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Link to="/Search?deal_type=sale">
-                <Button size="lg" className="w-full sm:w-auto bg-white text-slate-900 hover:bg-white/90 rounded-xl px-8 gap-2 h-13 text-base shadow-2xl">
-                  <Search className="w-4 h-4" /> Browse Properties
-                </Button>
-              </Link>
-              <Link to="/Search?deal_type=rent">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10 rounded-xl px-8 h-13 text-base">
-                  Rent a Place
-                </Button>
-              </Link>
-            </div>
-          </motion.div>
+    <div className="bg-white min-h-screen">
+      {/* Hero search block */}
+      <section className="max-w-4xl mx-auto px-4 pt-14 pb-10 text-center">
+        <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-8">
+          Real Estate in New York
+        </h1>
 
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4"
+        {/* Deal type tabs */}
+        <div className="inline-flex bg-slate-100 rounded-xl p-1 mb-5">
+          {DEAL_TABS.map(tab => (
+            <button
+              key={tab.key}
+              onClick={() => setDealTab(tab.key)}
+              className={`px-6 py-2 rounded-lg text-sm font-semibold transition-all ${
+                dealTab === tab.key
+                  ? "bg-white text-slate-900 shadow-sm"
+                  : "text-slate-500 hover:text-slate-700"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Search bar */}
+        <div className="flex flex-col sm:flex-row items-stretch gap-0 bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+          {/* Rooms */}
+          <div className="relative border-r border-slate-200">
+            <select
+              value={rooms}
+              onChange={e => setRooms(e.target.value)}
+              className="h-14 pl-4 pr-8 text-sm font-medium text-slate-700 bg-transparent appearance-none outline-none cursor-pointer w-full sm:w-36"
+            >
+              {ROOM_OPTIONS.map(r => (
+                <option key={r} value={r}>{r === "Any" ? "Rooms: Any" : r === "Studio" ? "Studio" : `${r} room${r === "1" ? "" : "s"}`}</option>
+              ))}
+            </select>
+            <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+          </div>
+
+          {/* Price */}
+          <div className="relative border-r border-slate-200 flex items-center">
+            <span className="pl-4 text-slate-400 text-sm">Price up to</span>
+            <input
+              type="number"
+              placeholder="$"
+              value={maxPrice}
+              onChange={e => setMaxPrice(e.target.value)}
+              className="h-14 w-32 pl-2 pr-4 text-sm text-slate-700 bg-transparent outline-none"
+            />
+          </div>
+
+          {/* Location search */}
+          <div className="flex-1 flex items-center border-r border-slate-200">
+            <Search className="ml-4 w-4 h-4 text-slate-400 flex-shrink-0" />
+            <input
+              type="text"
+              placeholder="District, street, address..."
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              onKeyDown={e => e.key === "Enter" && handleSearch()}
+              className="h-14 flex-1 px-3 text-sm text-slate-700 bg-transparent outline-none"
+            />
+          </div>
+
+          {/* Map button */}
+          <button
+            onClick={() => navigate("/Search")}
+            className="hidden sm:flex items-center gap-2 px-4 text-sm text-slate-500 hover:text-slate-700 border-r border-slate-200 whitespace-nowrap"
           >
-            {stats.map((stat) => (
-              <div key={stat.label} className="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-5 text-center">
-                <p className="text-2xl sm:text-3xl font-bold text-white">{stat.value}</p>
-                <p className="text-sm text-white/60 mt-1">{stat.label}</p>
-              </div>
-            ))}
-          </motion.div>
+            <Map className="w-4 h-4" /> On map
+          </button>
+
+          {/* CTA */}
+          <button
+            onClick={handleSearch}
+            className="h-14 px-6 bg-red-500 hover:bg-red-600 text-white font-semibold text-sm transition-colors whitespace-nowrap sm:rounded-r-2xl"
+          >
+            Show {totalCount[dealTab] > 0 ? totalCount[dealTab] : ""} listings
+          </button>
         </div>
       </section>
 
-      {/* Categories */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 -mt-12 relative z-10 mb-20">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {categories.map((cat, i) => (
-            <motion.div
-              key={cat.type}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * i }}
+      {/* Quick links */}
+      <section className="max-w-5xl mx-auto px-4 pb-12">
+        <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+          {QUICK_LINKS.map(link => (
+            <Link
+              key={link.label}
+              to={`/Search?deal_type=${link.deal}&type=${link.type}`}
+              className="group flex flex-col items-center gap-2"
             >
-              <Link
-                to={`/Search?type=${cat.type}`}
-                className="block bg-white rounded-2xl p-6 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100"
-              >
-                <div className={`w-12 h-12 bg-gradient-to-br ${cat.color} rounded-xl flex items-center justify-center mb-4`}>
-                  <cat.icon className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="font-semibold text-slate-900">{cat.label}</h3>
-                <p className="text-sm text-slate-400 mt-1">Explore →</p>
-              </Link>
-            </motion.div>
+              <div className="w-full aspect-square rounded-2xl overflow-hidden bg-slate-100">
+                <img
+                  src={link.icon}
+                  alt={link.label}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="text-center">
+                <p className="text-sm font-medium text-slate-800 group-hover:text-red-500 transition-colors leading-tight">{link.label}</p>
+                <p className="text-xs text-slate-400">{link.count}</p>
+              </div>
+            </Link>
           ))}
         </div>
       </section>
 
-      {/* Featured */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 mb-20">
-        <div className="flex items-end justify-between mb-8">
-          <div>
-            <h2 className="text-3xl font-bold text-slate-900">Featured Properties</h2>
-            <p className="text-slate-500 mt-2">Handpicked premium listings</p>
-          </div>
-          <Link to="/Search" className="hidden sm:flex items-center gap-1.5 text-sm font-medium text-rose-600 hover:text-rose-700">
-            View All <ArrowRight className="w-4 h-4" />
+      <div className="border-t border-slate-100" />
+
+      {/* For Sale listings */}
+      <section className="max-w-7xl mx-auto px-4 py-10">
+        <div className="flex items-center justify-between mb-5">
+          <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+            For Sale
+            <span className="text-base font-normal text-slate-400">{forSale.length}</span>
+            <ArrowRight className="w-4 h-4 text-slate-400" />
+          </h2>
+          <Link to="/Search?deal_type=sale" className="text-sm text-red-500 hover:text-red-600 font-medium">
+            View all
           </Link>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featured.slice(0, 6).map((property) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {forSale.map(p => (
             <PropertyCard
-              key={property.id}
-              property={property}
-              isFavorited={favIds.has(property.id)}
+              key={p.id}
+              property={p}
+              isFavorited={favIds.has(p.id)}
               onToggleFavorite={toggleFavorite}
             />
           ))}
+          {forSale.length === 0 && (
+            <p className="text-slate-400 text-sm col-span-4 py-8 text-center">No listings yet</p>
+          )}
         </div>
       </section>
 
-      {/* Why Us */}
-      <section className="bg-slate-900 py-20 mb-0">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl font-bold text-white text-center mb-4">Why Choose Estato</h2>
-          <p className="text-slate-400 text-center mb-14 max-w-lg mx-auto">We provide comprehensive tools and premium service for your property journey</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { icon: Shield, title: "Verified Listings", desc: "Every property is verified by our team for accuracy and legitimacy." },
-              { icon: MapPin, title: "Interactive Maps", desc: "Explore properties on interactive maps with neighborhood insights." },
-              { icon: Clock, title: "Real-Time Updates", desc: "Get instant notifications when new properties match your criteria." },
-            ].map((item) => (
-              <div key={item.title} className="text-center">
-                <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
-                  <item.icon className="w-7 h-7 text-rose-400" />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-2">{item.title}</h3>
-                <p className="text-slate-400 leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
+      <div className="border-t border-slate-100" />
+
+      {/* For Rent listings */}
+      <section className="max-w-7xl mx-auto px-4 py-10">
+        <div className="flex items-center justify-between mb-5">
+          <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+            For Rent
+            <span className="text-base font-normal text-slate-400">{forRent.length}</span>
+            <ArrowRight className="w-4 h-4 text-slate-400" />
+          </h2>
+          <Link to="/Search?deal_type=rent" className="text-sm text-red-500 hover:text-red-600 font-medium">
+            View all
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {forRent.map(p => (
+            <PropertyCard
+              key={p.id}
+              property={p}
+              isFavorited={favIds.has(p.id)}
+              onToggleFavorite={toggleFavorite}
+            />
+          ))}
+          {forRent.length === 0 && (
+            <p className="text-slate-400 text-sm col-span-4 py-8 text-center">No listings yet</p>
+          )}
+        </div>
+      </section>
+
+      <div className="border-t border-slate-100" />
+
+      {/* Services promo strip */}
+      <section className="max-w-7xl mx-auto px-4 py-10">
+        <h2 className="text-xl font-bold text-slate-900 mb-5">Services</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {[
+            {
+              title: "Mortgage Calculator",
+              desc: "Calculate monthly payments and find the best rates",
+              link: "/Calculator",
+              bg: "bg-amber-50",
+              accent: "text-amber-600",
+            },
+            {
+              title: "Compare Properties",
+              desc: "Side-by-side comparison of up to 4 properties",
+              link: "/Compare",
+              bg: "bg-blue-50",
+              accent: "text-blue-600",
+            },
+            {
+              title: "List Your Property",
+              desc: "Reach thousands of buyers and renters today",
+              link: "/AddProperty",
+              bg: "bg-emerald-50",
+              accent: "text-emerald-600",
+            },
+          ].map(s => (
+            <Link
+              key={s.title}
+              to={s.link}
+              className={`${s.bg} rounded-2xl p-6 hover:opacity-80 transition group`}
+            >
+              <h3 className={`font-bold text-lg ${s.accent} mb-1`}>{s.title}</h3>
+              <p className="text-sm text-slate-600">{s.desc}</p>
+              <span className={`text-xs font-semibold ${s.accent} mt-3 inline-block group-hover:underline`}>
+                Learn more →
+              </span>
+            </Link>
+          ))}
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-950 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
-          <p className="text-slate-500 text-sm">© 2026 Estato. All rights reserved.</p>
+      <footer className="border-t border-slate-100 py-8 mt-4">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <span className="text-sm font-bold text-slate-900">Estato</span>
+          <p className="text-xs text-slate-400">© 2026 Estato. All rights reserved.</p>
+          <div className="flex gap-4 text-xs text-slate-400">
+            <Link to="/Search" className="hover:text-slate-600">Search</Link>
+            <Link to="/AddProperty" className="hover:text-slate-600">List Property</Link>
+            <Link to="/Calculator" className="hover:text-slate-600">Mortgage</Link>
+          </div>
         </div>
       </footer>
     </div>
