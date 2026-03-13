@@ -64,7 +64,7 @@ export default function Calculator() {
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <Label className="flex items-center gap-2 text-sm"><Percent className="w-4 h-4 text-slate-400" /> Down Payment</Label>
-                  <span className="font-semibold text-slate-900">{downPayment}% (${(price * downPayment / 100).toLocaleString()})</span>
+                  <span className="font-semibold text-slate-900">{downPayment}% (€{(price * downPayment / 100).toLocaleString()})</span>
                 </div>
                 <Slider value={[downPayment]} onValueChange={([v]) => setDownPayment(v)} min={0} max={90} step={5} className="mt-2" />
                 <div className="flex justify-between text-xs text-slate-400 mt-1"><span>0%</span><span>90%</span></div>
