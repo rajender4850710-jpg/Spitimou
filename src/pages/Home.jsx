@@ -95,6 +95,7 @@ export default function Home() {
     const params = new URLSearchParams();
     params.set("deal_type", dealTab);
     if (propertyType !== "Any Type") params.set("type", propertyType.toLowerCase());
+    if (minPrice) params.set("minPrice", minPrice);
     if (maxPrice) params.set("maxPrice", maxPrice);
     if (query) params.set("query", query);
     navigate(`/Search?${params.toString()}`);
