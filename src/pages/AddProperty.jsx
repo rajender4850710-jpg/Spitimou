@@ -14,15 +14,32 @@ import { Link } from "react-router-dom";
 export default function AddProperty() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [countryCode, setCountryCode] = useState("+357");
   const [form, setForm] = useState({
     title: "", description: "", type: "apartment", deal_type: "sale",
     price: "", area: "", living_area: "", kitchen_area: "",
     rooms: "", floor: "", total_floors: "", building_year: "",
     building_type: "brick", renovation: "euro",
     address: "", city: "", district: "",
-    contact_name: "", contact_phone: "",
+    contact_name: "", contact_phone: "", contact_email: "",
     parking: false, balcony: false, elevator: false, is_featured: false,
   });
+
+  const countryCodes = [
+    { code: "+357", label: "🇨🇾 +357" },
+    { code: "+30", label: "🇬🇷 +30" },
+    { code: "+44", label: "🇬🇧 +44" },
+    { code: "+7", label: "🇷🇺 +7" },
+    { code: "+49", label: "🇩🇪 +49" },
+    { code: "+33", label: "🇫🇷 +33" },
+    { code: "+39", label: "🇮🇹 +39" },
+    { code: "+1", label: "🇺🇸 +1" },
+    { code: "+971", label: "🇦🇪 +971" },
+    { code: "+972", label: "🇮🇱 +972" },
+    { code: "+90", label: "🇹🇷 +90" },
+    { code: "+380", label: "🇺🇦 +380" },
+    { code: "+48", label: "🇵🇱 +48" },
+  ];
 
   const update = (key, value) => setForm({ ...form, [key]: value });
 
