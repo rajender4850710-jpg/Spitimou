@@ -135,15 +135,15 @@ export default function Home() {
 
         {/* Search bar */}
         <div className="flex flex-col sm:flex-row items-stretch gap-0 bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-          {/* Rooms */}
+          {/* Type */}
           <div className="relative border-r border-slate-200">
             <select
-              value={rooms}
-              onChange={e => setRooms(e.target.value)}
-              className="h-14 pl-4 pr-8 text-sm font-medium text-slate-700 bg-transparent appearance-none outline-none cursor-pointer w-full sm:w-36"
+              value={propertyType}
+              onChange={e => setPropertyType(e.target.value)}
+              className="h-14 pl-4 pr-8 text-sm font-medium text-slate-700 bg-transparent appearance-none outline-none cursor-pointer w-full sm:w-40"
             >
-              {ROOM_OPTIONS.map(r => (
-                <option key={r} value={r}>{r === "Any" ? "Rooms: Any" : r === "Studio" ? "Studio" : `${r} room${r === "1" ? "" : "s"}`}</option>
+              {TYPE_OPTIONS.map(t => (
+                <option key={t} value={t}>{t}</option>
               ))}
             </select>
             <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
