@@ -150,15 +150,23 @@ export default function Home() {
             <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
           </div>
 
-          {/* Price */}
-          <div className="relative border-r border-slate-200 flex items-center">
-            <span className="pl-4 text-slate-400 text-sm">Price up to</span>
+          {/* Price Range */}
+          <div className="relative border-r border-slate-200 flex items-center gap-1 px-3">
+            <span className="text-slate-400 text-xs whitespace-nowrap">$</span>
             <input
               type="number"
-              placeholder="$"
+              placeholder="Min"
+              value={minPrice}
+              onChange={e => setMinPrice(e.target.value)}
+              className="h-14 w-20 text-sm text-slate-700 bg-transparent outline-none"
+            />
+            <span className="text-slate-300 text-sm">—</span>
+            <input
+              type="number"
+              placeholder="Max"
               value={maxPrice}
               onChange={e => setMaxPrice(e.target.value)}
-              className="h-14 w-32 pl-2 pr-4 text-sm text-slate-700 bg-transparent outline-none"
+              className="h-14 w-20 text-sm text-slate-700 bg-transparent outline-none"
             />
           </div>
 
