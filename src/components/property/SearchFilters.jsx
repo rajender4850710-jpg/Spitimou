@@ -45,11 +45,13 @@ export default function SearchFilters({ filters, onFiltersChange, onSearch }) {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Properties</SelectItem>
-              <SelectItem value="apartment">Apartment</SelectItem>
-              <SelectItem value="house">House</SelectItem>
               <SelectItem value="studio">Studio</SelectItem>
+              <SelectItem value="apartment">Apartment</SelectItem>
               <SelectItem value="penthouse">Penthouse</SelectItem>
+              <SelectItem value="villa">Villa</SelectItem>
+              <SelectItem value="maisonette">Maisonette</SelectItem>
               <SelectItem value="townhouse">Townhouse</SelectItem>
+              <SelectItem value="land">Plots & Land</SelectItem>
               <SelectItem value="commercial">Commercial</SelectItem>
             </SelectContent>
           </Select>
