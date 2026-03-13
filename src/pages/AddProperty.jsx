@@ -10,6 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { Card } from "@/components/ui/card";
 import { Plus, Upload, ArrowLeft, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import OtpVerificationModal from "@/components/property/OtpVerificationModal";
 
 export default function AddProperty() {
   const navigate = useNavigate();
