@@ -51,6 +51,7 @@ const AuthenticatedApp = () => {
         <Route path="/Calculator" element={<Calculator />} />
         <Route path="/Compare" element={<Compare />} />
         <Route path="/AddProperty" element={<AddProperty />} />
+        <Route path="/Valuation" element={<Valuation />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
