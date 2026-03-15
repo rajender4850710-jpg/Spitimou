@@ -14,6 +14,7 @@ import Favorites from './pages/Favorites';
 import Calculator from './pages/Calculator';
 import Compare from './pages/Compare';
 import AddProperty from './pages/AddProperty';
+import Valuation from './pages/Valuation';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();

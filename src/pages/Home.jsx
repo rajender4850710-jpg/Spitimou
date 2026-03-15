@@ -339,6 +339,13 @@ export default function Home() {
               bg: "bg-emerald-50",
               accent: "text-emerald-600",
             },
+            {
+              title: "AI Price Valuation",
+              desc: "Get an instant AI-powered market value estimate for your property",
+              link: "/Valuation",
+              bg: "bg-violet-50",
+              accent: "text-violet-600",
+            },
           ].map(s => (
             <Link
               key={s.title}
