@@ -62,7 +62,7 @@ export default function Compare() {
             <SelectValue placeholder="Add a property to compare..." />
           </SelectTrigger>
           <SelectContent>
-            {allProperties.filter(p => !selectedIds.includes(p.id)).map(p => (
+            {allProperties.filter(p => !compareIds.includes(p.id)).map(p => (
               <SelectItem key={p.id} value={p.id}>{p.title} — ${p.price?.toLocaleString()}</SelectItem>
             ))}
           </SelectContent>
