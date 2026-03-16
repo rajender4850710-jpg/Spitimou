@@ -13,6 +13,9 @@ const dealLabels = { sale: "For Sale", rent: "For Rent", daily_rent: "Daily Rent
 const dealColors = { sale: "bg-emerald-500", rent: "bg-blue-500", daily_rent: "bg-amber-500" };
 
 export default function PropertyCard({ property, isFavorited, onToggleFavorite, compact = false }) {
+  const { toggleCompare, isInCompare, compareIds } = useCompare();
+  const inCompare = isInCompare(property.id);
+  const compareFull = compareIds.length >= 4 && !inCompare;
   const formatPrice = (price, dealType) => {
     if (dealType === "rent" || dealType === "daily_rent") {
       return `€${price.toLocaleString()}/mo`;
@@ -46,12 +49,27 @@ export default function PropertyCard({ property, isFavorited, onToggleFavorite, 
             </span>
           )}
         </div>
-        <button
-          onClick={(e) => { e.preventDefault(); onToggleFavorite?.(property.id); }}
-          className="absolute top-3 right-3 w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition shadow-sm"
-        >
-          <Heart className={`w-4 h-4 transition ${isFavorited ? "fill-rose-500 text-rose-500" : "text-slate-400"}`} />
-        </button>
+        <div className="absolute top-3 right-3 flex flex-col gap-1.5">
+          <button
+            onClick={(e) => { e.preventDefault(); onToggleFavorite?.(property.id); }}
+            className="w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition shadow-sm"
+          >
+            <Heart className={`w-4 h-4 transition ${isFavorited ? "fill-rose-500 text-rose-500" : "text-slate-400"}`} />
+          </button>
+          <button
+            onClick={(e) => { e.preventDefault(); if (!compareFull) toggleCompare(property.id); }}
+            title={compareFull ? "Compare list is full (4/4)" : inCompare ? "Remove from compare" : "Add to compare"}
+            className={`w-9 h-9 backdrop-blur-sm rounded-full flex items-center justify-center transition shadow-sm ${
+              inCompare
+                ? "bg-blue-500 text-white hover:bg-blue-600"
+                : compareFull
+                ? "bg-white/90 text-slate-300 cursor-not-allowed"
+                : "bg-white/90 text-slate-400 hover:bg-white hover:text-blue-500"
+            }`}
+          >
+            <GitCompare className="w-4 h-4" />
+          </button>
+        </div>
       </div>
 
       <Link to={`/Property?id=${property.id}`} className="block p-4">
