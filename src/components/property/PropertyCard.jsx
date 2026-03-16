@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Heart, MapPin, Maximize, BedDouble, Building2, Star } from "lucide-react";
+import { Heart, MapPin, Maximize, BedDouble, Building2, Star, GitCompare } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
+import { useCompare } from "@/lib/CompareContext";
 
 const typeLabels = {
   apartment: "Apartment", house: "House", studio: "Studio",
