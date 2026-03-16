@@ -10,26 +10,22 @@ const buildingLabels = { brick: "Brick", panel: "Panel", monolith: "Monolith", w
 const renovationLabels = { cosmetic: "Cosmetic", euro: "Euro", designer: "Designer", needs_renovation: "Needs Renovation" };
 
 export default function Compare() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const addId = urlParams.get("add");
-  const [selectedIds, setSelectedIds] = useState(addId ? [addId] : []);
+  const { compareIds, toggleCompare } = useCompare();
 
   const { data: allProperties = [] } = useQuery({
     queryKey: ["all-properties"],
     queryFn: () => base44.entities.Property.filter({ status: "active" }),
   });
 
-  const selectedProperties = allProperties.filter(p => selectedIds.includes(p.id));
+  const selectedProperties = allProperties.filter(p => compareIds.includes(p.id));
 
   const addProperty = (id) => {
-    if (id && !selectedIds.includes(id) && selectedIds.length < 4) {
-      setSelectedIds([...selectedIds, id]);
+    if (id && !compareIds.includes(id) && compareIds.length < 4) {
+      toggleCompare(id);
     }
   };
 
-  const removeProperty = (id) => {
-    setSelectedIds(selectedIds.filter(i => i !== id));
-  };
+  const removeProperty = (id) => toggleCompare(id);
 
   const rows = [
     { label: "Price", render: (p) => `$${p.price?.toLocaleString()}` },
