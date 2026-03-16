@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { X, Plus, GitCompare, BedDouble, Maximize, Building2, Calendar, Paintbrush, Car, CheckCircle, XCircle } from "lucide-react";
+import { X, GitCompare, CheckCircle, XCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useCompare } from "@/lib/CompareContext";
 
 const buildingLabels = { brick: "Brick", panel: "Panel", monolith: "Monolith", wood: "Wood", block: "Block" };
 const renovationLabels = { cosmetic: "Cosmetic", euro: "Euro", designer: "Designer", needs_renovation: "Needs Renovation" };
