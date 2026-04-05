@@ -154,6 +154,47 @@ export default function AddProperty() {
         </Card>
 
         <Card className="p-6 rounded-2xl border-slate-100 space-y-4">
+          <h2 className="font-semibold text-slate-900">Location & Contact</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div><Label>Address *</Label><Input required className="mt-1 rounded-xl" value={form.address} onChange={e => update("address", e.target.value)} /></div>
+            <div><Label>City *</Label><Input required className="mt-1 rounded-xl" value={form.city} onChange={e => update("city", e.target.value)} /></div>
+            <div><Label>District</Label><Input className="mt-1 rounded-xl" value={form.district} onChange={e => update("district", e.target.value)} /></div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div><Label>Contact Name</Label><Input className="mt-1 rounded-xl" value={form.contact_name} onChange={e => update("contact_name", e.target.value)} /></div>
+            <div>
+              <Label>Mobile *</Label>
+              <div className="flex gap-2 mt-1">
+                <Select value={countryCode} onValueChange={setCountryCode}>
+                  <SelectTrigger className="w-32 rounded-xl shrink-0">
+                    {(() => { const c = countryCodes.find(x => x.code === countryCode); return c ? <span className="flex items-center gap-1.5"><span className="text-lg">{c.flag}</span><span className="font-bold text-sm">{c.code}</span></span> : countryCode; })()}
+                  </SelectTrigger>
+                  <SelectContent>
+                    {countryCodes.map(c => (
+                      <SelectItem key={c.code} value={c.code}>
+                        <span className="flex items-center gap-2">
+                          <span className="text-lg">{c.flag}</span>
+                          <span className="font-bold text-slate-800">{c.name}</span>
+                          <span className="text-slate-400 text-xs">{c.code}</span>
+                        </span>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Input required type="tel" className="rounded-xl" placeholder="99 123456" value={form.contact_phone} onChange={e => update("contact_phone", e.target.value)} />
+              </div>
+            </div>
+            <div>
+              <Label>Email *</Label>
+              <div className="flex gap-2 mt-1 items-center">
+                <Input required type="email" className="rounded-xl" value={form.contact_email} onChange={e => { update("contact_email", e.target.value); setVerified(false); }} />
+                {verified && <span className="text-green-600 text-xs font-semibold whitespace-nowrap flex items-center gap-1"><CheckCircle className="w-4 h-4" /> Verified</span>}
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        <Card className="p-6 rounded-2xl border-slate-100 space-y-4">
           <h2 className="font-semibold text-slate-900">Property Information</h2>
           <div>
             <Label>Title *</Label>
@@ -232,47 +273,6 @@ export default function AddProperty() {
             <div className="flex items-center gap-2"><Switch checked={form.parking} onCheckedChange={v => update("parking", v)} /><Label>Parking</Label></div>
             <div className="flex items-center gap-2"><Switch checked={form.balcony} onCheckedChange={v => update("balcony", v)} /><Label>Balcony</Label></div>
             <div className="flex items-center gap-2"><Switch checked={form.elevator} onCheckedChange={v => update("elevator", v)} /><Label>Elevator</Label></div>
-          </div>
-        </Card>
-
-        <Card className="p-6 rounded-2xl border-slate-100 space-y-4">
-          <h2 className="font-semibold text-slate-900">Location & Contact</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div><Label>Address *</Label><Input required className="mt-1 rounded-xl" value={form.address} onChange={e => update("address", e.target.value)} /></div>
-            <div><Label>City *</Label><Input required className="mt-1 rounded-xl" value={form.city} onChange={e => update("city", e.target.value)} /></div>
-            <div><Label>District</Label><Input className="mt-1 rounded-xl" value={form.district} onChange={e => update("district", e.target.value)} /></div>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div><Label>Contact Name</Label><Input className="mt-1 rounded-xl" value={form.contact_name} onChange={e => update("contact_name", e.target.value)} /></div>
-            <div>
-              <Label>Mobile *</Label>
-              <div className="flex gap-2 mt-1">
-                <Select value={countryCode} onValueChange={setCountryCode}>
-                  <SelectTrigger className="w-32 rounded-xl shrink-0">
-                    {(() => { const c = countryCodes.find(x => x.code === countryCode); return c ? <span className="flex items-center gap-1.5"><span className="text-lg">{c.flag}</span><span className="font-bold text-sm">{c.code}</span></span> : countryCode; })()}
-                  </SelectTrigger>
-                  <SelectContent>
-                    {countryCodes.map(c => (
-                      <SelectItem key={c.code} value={c.code}>
-                        <span className="flex items-center gap-2">
-                          <span className="text-lg">{c.flag}</span>
-                          <span className="font-bold text-slate-800">{c.name}</span>
-                          <span className="text-slate-400 text-xs">{c.code}</span>
-                        </span>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Input required type="tel" className="rounded-xl" placeholder="99 123456" value={form.contact_phone} onChange={e => update("contact_phone", e.target.value)} />
-              </div>
-            </div>
-            <div>
-              <Label>Email *</Label>
-              <div className="flex gap-2 mt-1 items-center">
-                <Input required type="email" className="rounded-xl" value={form.contact_email} onChange={e => { update("contact_email", e.target.value); setVerified(false); }} />
-                {verified && <span className="text-green-600 text-xs font-semibold whitespace-nowrap flex items-center gap-1"><CheckCircle className="w-4 h-4" /> Verified</span>}
-              </div>
-            </div>
           </div>
         </Card>
 
