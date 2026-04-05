@@ -23,12 +23,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           <Link to="/Home" className="flex items-center gap-2.5">
-            <div className="w-9 h-9 bg-gradient-to-br from-slate-900 to-slate-700 rounded-xl flex items-center justify-center">
-              <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="currentColor">
-                <path d="M12 2L2 9.5V22h6v-6h8v6h6V9.5L12 2z"/>
-                <circle cx="12" cy="13" r="1.8" fill="#1e293b"/>
-                <rect x="11.1" y="14.5" width="1.8" height="2.5" rx="0.6" fill="#1e293b"/>
-              </svg>
+            <div className="w-9 h-9 bg-gradient-to-br from-slate-900 to-slate-700 rounded-xl flex items-center justify-center text-white">
+              🏠
             </div>
             <span className="text-xl font-bold tracking-tight text-slate-900">Στέγη μου</span>
           </Link>
