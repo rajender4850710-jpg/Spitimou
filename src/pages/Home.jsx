@@ -370,7 +370,7 @@ export default function Home() {
           <div className="flex gap-4 text-xs text-slate-400">
 
 
-            <Link to="/Calculator" className="hover:text-slate-600">Mortgage</Link>
+
           </div>
         </div>
       </footer>
