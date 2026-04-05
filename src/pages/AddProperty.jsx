@@ -154,7 +154,7 @@ export default function AddProperty() {
         </Card>
 
         <Card className="p-6 rounded-2xl border-slate-100 space-y-4">
-          <h2 className="font-semibold text-slate-900">Basic Information</h2>
+          <h2 className="font-semibold text-slate-900">Property Information</h2>
           <div>
             <Label>Title *</Label>
             <Input required className="mt-1 rounded-xl" value={form.title} onChange={e => update("title", e.target.value)} />
