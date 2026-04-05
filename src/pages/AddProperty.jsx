@@ -66,7 +66,7 @@ export default function AddProperty() {
       building_year: form.building_year ? Number(form.building_year) : undefined,
       price_per_sqm: form.area ? Math.round(Number(form.price) / Number(form.area)) : undefined,
       status: "active",
-      images: ["https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800"],
+      images: form.images?.length ? form.images : [],
     };
     await base44.entities.Property.create(data);
     setLoading(false);
@@ -77,7 +77,7 @@ export default function AddProperty() {
     const file = e.target.files[0];
     if (!file) return;
     const { file_url } = await base44.integrations.Core.UploadFile({ file });
-    setForm({ ...form, images: [...(form.images || []), file_url] });
+    setForm(prev => ({ ...prev, images: [...(prev.images || []), file_url] }));
   };
 
   return (
