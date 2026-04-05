@@ -26,7 +26,7 @@ export default function Navbar() {
             <div className="w-9 h-9 bg-gradient-to-br from-slate-900 to-slate-700 rounded-xl flex items-center justify-center">
               <Home className="w-4.5 h-4.5 text-white" />
             </div>
-            <span className="text-xl font-bold tracking-tight text-slate-900">Σπιτι</span>
+            <span className="text-xl font-bold tracking-tight text-slate-900">Στέγη μου</span>
           </Link>
 
           <div className="hidden md:flex items-center gap-1">
