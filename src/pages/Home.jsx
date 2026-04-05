@@ -369,7 +369,7 @@ export default function Home() {
           <p className="text-xs text-slate-400">© 2026 Estato. All rights reserved.</p>
           <div className="flex gap-4 text-xs text-slate-400">
 
-            <Link to="/AddProperty" className="hover:text-slate-600">List Property</Link>
+
             <Link to="/Calculator" className="hover:text-slate-600">Mortgage</Link>
           </div>
         </div>
