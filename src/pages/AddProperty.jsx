@@ -15,6 +15,7 @@ import OtpVerificationModal from "@/components/property/OtpVerificationModal";
 export default function AddProperty() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [showOtp, setShowOtp] = useState(false);
   const [verified, setVerified] = useState(false);
   const [countryCode, setCountryCode] = useState("+357");
@@ -82,8 +83,11 @@ export default function AddProperty() {
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    setUploading(true);
     const { file_url } = await base44.integrations.Core.UploadFile({ file });
     setForm(prev => ({ ...prev, images: [...(prev.images || []), file_url] }));
+    setUploading(false);
+    e.target.value = "";
   };
 
   return (
@@ -278,10 +282,33 @@ export default function AddProperty() {
 
         <Card className="p-6 rounded-2xl border-slate-100">
           <h2 className="font-semibold text-slate-900 mb-4">Photos</h2>
-          <label className="flex flex-col items-center justify-center h-32 border-2 border-dashed border-slate-200 rounded-2xl cursor-pointer hover:border-slate-300 transition">
-            <Upload className="w-8 h-8 text-slate-300 mb-2" />
-            <span className="text-sm text-slate-400">Click to upload photos</span>
-            <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
+          {form.images?.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-3">
+              {form.images.map((url, i) => (
+                <div key={i} className="relative w-20 h-20 rounded-xl overflow-hidden border border-slate-200">
+                  <img src={url} alt="" className="w-full h-full object-cover" />
+                  <button
+                    type="button"
+                    onClick={() => setForm(prev => ({ ...prev, images: prev.images.filter((_, idx) => idx !== i) }))}
+                    className="absolute top-0.5 right-0.5 bg-black/60 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs"
+                  >✕</button>
+                </div>
+              ))}
+            </div>
+          )}
+          <label className={`flex flex-col items-center justify-center h-32 border-2 border-dashed rounded-2xl cursor-pointer transition ${uploading ? "border-blue-300 bg-blue-50" : "border-slate-200 hover:border-slate-300"}`}>
+            {uploading ? (
+              <>
+                <div className="w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full animate-spin mb-2" />
+                <span className="text-sm text-blue-400">Uploading...</span>
+              </>
+            ) : (
+              <>
+                <Upload className="w-8 h-8 text-slate-300 mb-2" />
+                <span className="text-sm text-slate-400">Click to upload photos</span>
+              </>
+            )}
+            <input type="file" className="hidden" accept="image/*" disabled={uploading} onChange={handleImageUpload} />
           </label>
         </Card>
 
