@@ -18,6 +18,8 @@ export default function AddProperty() {
   const [showOtp, setShowOtp] = useState(false);
   const [verified, setVerified] = useState(false);
   const [countryCode, setCountryCode] = useState("+357");
+  const [listerRole, setListerRole] = useState("");
+  const [purposeIntent, setPurposeIntent] = useState("");
   const [form, setForm] = useState({
     title: "", description: "", type: "apartment", deal_type: "sale",
     price: "", area: "", living_area: "", kitchen_area: "",
@@ -48,6 +50,10 @@ export default function AddProperty() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!listerRole || !purposeIntent) {
+      alert("Please select who you are and what you are here to do.");
+      return;
+    }
     if (!verified) {
       setShowOtp(true);
       return;
@@ -98,6 +104,55 @@ export default function AddProperty() {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Get Started card */}
+        <Card className="p-6 rounded-2xl border-slate-100 space-y-6">
+          <h2 className="text-2xl font-bold text-slate-900">Let's get you started</h2>
+
+          <div className="space-y-3">
+            <p className="font-semibold text-slate-800">You are: <span className="text-red-500">*</span></p>
+            <div className="flex flex-wrap gap-3">
+              {["Owner", "Agent", "Builder"].map(role => (
+                <button
+                  key={role}
+                  type="button"
+                  onClick={() => setListerRole(role)}
+                  className={`px-6 py-2.5 rounded-full border-2 text-sm font-medium transition-all ${
+                    listerRole === role
+                      ? "border-slate-900 bg-slate-900 text-white"
+                      : "border-slate-300 text-slate-700 hover:border-slate-500"
+                  }`}
+                >
+                  {role}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <p className="font-semibold text-slate-800">You are here to: <span className="text-red-500">*</span></p>
+            <div className="flex flex-wrap gap-3">
+              {[
+                { label: "Sell", value: "sale" },
+                { label: "Rent / Lease", value: "rent" },
+                { label: "Daily Rent", value: "daily_rent" },
+              ].map(opt => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => { setPurposeIntent(opt.value); update("deal_type", opt.value); }}
+                  className={`px-6 py-2.5 rounded-full border-2 text-sm font-medium transition-all ${
+                    purposeIntent === opt.value
+                      ? "border-slate-900 bg-slate-900 text-white"
+                      : "border-slate-300 text-slate-700 hover:border-slate-500"
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </Card>
+
         <Card className="p-6 rounded-2xl border-slate-100 space-y-4">
           <h2 className="font-semibold text-slate-900">Basic Information</h2>
           <div>
