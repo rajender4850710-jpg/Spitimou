@@ -23,9 +23,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           <Link to="/Home" className="flex items-center gap-2.5">
-            <div className="w-9 h-9 bg-gradient-to-br from-slate-900 to-slate-700 rounded-xl flex items-center justify-center text-white">
-              🏠
-            </div>
+            <img src="https://media.base44.com/images/public/69b444c452bcac21e07fda1c/164265452_log.png" alt="Logo" className="w-9 h-9 rounded-xl" />
             <span className="text-xl font-bold tracking-tight text-slate-900">Στέγη μου</span>
           </Link>
 
