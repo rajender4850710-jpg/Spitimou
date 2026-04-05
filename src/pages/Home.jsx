@@ -366,7 +366,7 @@ export default function Home() {
       <footer className="border-t border-slate-100 py-8 mt-4">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
 
-          <p className="text-xs text-slate-400">© 2026 Estato. All rights reserved.</p>
+          <p className="text-xs text-slate-400">© 2026 Amrit tech Ltd. All rights reserved.</p>
           <div className="flex gap-4 text-xs text-slate-400">
 
 
