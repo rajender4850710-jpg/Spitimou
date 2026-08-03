@@ -1,0 +1,219 @@
+{
+  "name": "Property",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Property title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "apartment",
+        "house",
+        "studio",
+        "penthouse",
+        "townhouse",
+        "commercial"
+      ],
+      "description": "Property type"
+    },
+    "deal_type": {
+      "type": "string",
+      "enum": [
+        "sale",
+        "rent",
+        "daily_rent"
+      ],
+      "description": "Deal type"
+    },
+    "price": {
+      "type": "number",
+      "description": "Price in EUR"
+    },
+    "price_per_sqm": {
+      "type": "number",
+      "description": "Price per square meter"
+    },
+    "area": {
+      "type": "number",
+      "description": "Total area in sqm"
+    },
+    "living_area": {
+      "type": "number",
+      "description": "Living area in sqm"
+    },
+    "kitchen_area": {
+      "type": "number",
+      "description": "Kitchen area in sqm"
+    },
+    "rooms": {
+      "type": "number",
+      "description": "Number of rooms"
+    },
+    "floor": {
+      "type": "number",
+      "description": "Floor number"
+    },
+    "total_floors": {
+      "type": "number",
+      "description": "Total floors in building"
+    },
+    "building_year": {
+      "type": "number",
+      "description": "Year built"
+    },
+    "building_type": {
+      "type": "string",
+      "enum": [
+        "brick",
+        "panel",
+        "monolith",
+        "wood",
+        "block"
+      ],
+      "description": "Building material type"
+    },
+    "renovation": {
+      "type": "string",
+      "enum": [
+        "cosmetic",
+        "euro",
+        "designer",
+        "needs_renovation",
+        "none"
+      ],
+      "description": "Renovation status"
+    },
+    "address": {
+      "type": "string",
+      "description": "Full address"
+    },
+    "city": {
+      "type": "string",
+      "description": "City"
+    },
+    "district": {
+      "type": "string",
+      "description": "District"
+    },
+    "lat": {
+      "type": "number",
+      "description": "Latitude"
+    },
+    "lng": {
+      "type": "number",
+      "description": "Longitude"
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Image URLs"
+    },
+    "amenities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of amenities"
+    },
+    "parking": {
+      "type": "boolean",
+      "description": "Has parking"
+    },
+    "balcony": {
+      "type": "boolean",
+      "description": "Has balcony"
+    },
+    "elevator": {
+      "type": "boolean",
+      "description": "Has elevator"
+    },
+    "is_featured": {
+      "type": "boolean",
+      "description": "Featured listing"
+    },
+    "contact_phone": {
+      "type": "string",
+      "description": "Contact phone"
+    },
+    "contact_email": {
+      "type": "string",
+      "description": "Contact email"
+    },
+    "contact_name": {
+      "type": "string",
+      "description": "Contact person name"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "sold",
+        "reserved",
+        "archived"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "title",
+    "type",
+    "deal_type",
+    "price",
+    "area",
+    "rooms",
+    "address",
+    "city"
+  ],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "data.status": "active"
+        },
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}
